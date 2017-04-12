@@ -37,7 +37,7 @@
     		 dest="${ivy.jar.file}" usetimestamp="true"/>
     </target>
     
-    <target name="run" depends="install-ivy, generate-src, go" 
+    <target name="run" depends="install-ivy, go" 
             description="run the project" >
 	<echo>
 We are now ready to execute our simple programresolve with its dependency on commons-lang.
@@ -72,7 +72,7 @@ Let's go!
           target: go
                     Go ivy, go!
          ================================= -->
-    <target name="go" depends="install-ivy, generate-src, resolve" 
+    <target name="go" depends="install-ivy, resolve" 
             description="--> resolve dependencies, compile and run the project">
 		<echo message="using ivy to resolve commons-lang 2.1..."/>
         <!-- here comes the magic line: asks ivy to resolve a dependency on 
@@ -114,6 +114,9 @@ public class Hello {
 	<target name="resolve" description="retrieve dependencies with ivy">
  		<ivy:resolve/> <!-- resoudres les dependances déclarés dans iv.xml -->
 		<ivy:cachepath pathid="lib.path.id"/>
+	</target>
+	<target name="report" depends="go">
+		<ivy:report todir="report" />
 	</target>
 
     <!-- ================================= 
